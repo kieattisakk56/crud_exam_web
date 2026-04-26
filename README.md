@@ -1,59 +1,69 @@
-# WebApp
+# 🎨 Project 63 - Frontend (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+[![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=for-the-badge&logo=angular)](https://angular.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind--CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 
-## Development server
+The frontend portal for the recruitment exam, built with **Angular 21** and **Tailwind CSS**. Designed for a premium user experience with high responsiveness and clean aesthetics.
 
-To start a local development server, run:
+---
 
+## ✨ Features
+
+- **Responsive Layout**: Seamless experience across Mobile, Tablet, and Desktop.
+- **Dynamic Routing**: Instant navigation between test modules (Test 01 - 10).
+- **Reactive Forms**: Robust validation and user feedback.
+- **Modern Styling**: Powered by Tailwind CSS and custom glassmorphism effects.
+- **API Integration**: Connected to a .NET Core 9 backend using standard HTTP services.
+
+---
+
+## 🛠️ Project Structure
+
+```text
+web/
+├── src/
+│   ├── app/
+│   │   ├── pages/            # Test modules (Test01 - Test10)
+│   │   ├── services/         # API & Shared services
+│   │   ├── components/       # Shared UI components
+│   │   └── layouts/          # Dashboard & Main layouts
+│   └── assets/               # Static images & Icons
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (Latest LTS)
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Installation
+```bash
+npm install
+```
+
+### Run Development Server
 ```bash
 ng serve
 ```
+Navigate to `http://localhost:4200/`. The app will automatically reload on changes.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🧪 Running Tests
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
+### Unit Tests
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 👤 Author
+**Kieattisakk**
+*Frontend Developer*
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+*Generated with ❤️ by Antigravity*
