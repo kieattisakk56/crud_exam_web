@@ -64,6 +64,3 @@ ng test
 ## 👤 Author
 **Kieattisakk**
 *Frontend Developer*
-
----
-*Generated with ❤️ by Antigravity*
