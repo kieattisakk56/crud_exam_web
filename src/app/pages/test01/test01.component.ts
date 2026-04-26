@@ -23,7 +23,10 @@ export class Test01Component {
     address: '',
   };
 
-  constructor(private personService: PersonService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private personService: PersonService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.loadPersons();
@@ -31,7 +34,10 @@ export class Test01Component {
 
   loadPersons() {
     this.personService.getPersons().subscribe({
-      next: (data) => { this.persons = data; this.cdr.detectChanges(); },
+      next: (data) => {
+        this.persons = data;
+        this.cdr.detectChanges();
+      },
       error: (err) => console.error(err),
     });
   }
