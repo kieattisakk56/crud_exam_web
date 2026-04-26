@@ -1,0 +1,88 @@
+<div class="min-h-[80vh] p-8 font-sans bg-slate-50 text-slate-800 flex justify-center">
+  <div
+    class="w-full max-w-2xl bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden"
+  >
+    <div class="bg-emerald-500 text-white text-center py-3 font-semibold tracking-wide">
+      IT 08-1 (Comment System)
+    </div>
+
+    <div class="p-8">
+      <!-- Original Post Area -->
+      <div class="flex items-start gap-4 mb-6">
+        <div
+          class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg flex-shrink-0"
+        >
+          C
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-800 leading-tight">Change can</h4>
+          <p class="text-xs text-slate-500">16 October 2021 16:00</p>
+
+          <div class="mt-4 rounded-xl overflow-hidden shadow-md">
+            <!-- Mock image similar to the requirement -->
+            <img
+              src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Puppy and Kitten"
+              class="w-full h-auto object-cover max-h-80"
+            />
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-slate-100 my-6" />
+
+      <!-- Input Area -->
+      <div class="flex items-start gap-4 mb-8">
+        <div
+          class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0"
+        >
+          B
+        </div>
+        <div class="flex-1">
+          <h4 class="font-bold text-slate-800 text-sm mb-1">{{ currentUser }}</h4>
+          <input
+            type="text"
+            [(ngModel)]="newComment"
+            (keydown)="onKeyDown($event)"
+            placeholder="Comment"
+            class="w-full bg-slate-200/60 border-none text-slate-800 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          <p class="text-[10px] text-slate-400 mt-1">Press ENTER to post comment</p>
+        </div>
+      </div>
+
+      <!-- Comments List -->
+      <div class="space-y-6 pl-14">
+        @for (c of comments; track c) {
+          <div class="flex items-start gap-4 animate-fade-in">
+            <div
+              class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0"
+            >
+              B
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm">{{ c.commenterName }}</h4>
+              <p class="text-slate-600 text-sm mt-0.5">{{ c.commentText }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  </style>
+</div>

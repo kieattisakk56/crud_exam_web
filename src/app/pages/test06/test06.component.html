@@ -1,0 +1,97 @@
+<div class="min-h-[80vh] p-8 font-sans bg-slate-50 text-slate-800">
+  <div class="max-w-5xl mx-auto">
+    <!-- Header Section -->
+    <div class="bg-emerald-500 text-white text-center py-3 font-semibold tracking-wide rounded-t-2xl">
+      IT 06-1: Product Barcode System
+    </div>
+
+    <!-- Content Section -->
+    <div class="bg-white rounded-b-2xl shadow-xl border border-slate-100 p-8 mb-8">
+
+      <!-- Input Area -->
+      <div class="flex items-start gap-4 mb-8">
+        <div class="w-32 flex-shrink-0 pt-2">
+          <label class="font-semibold text-slate-700">รหัสสินค้า</label>
+        </div>
+        <div class="flex-1">
+          <div class="flex gap-4">
+            <input type="text" [(ngModel)]="productCode" (input)="formatCode($event)" placeholder="XXXX-XXXX-XXXX-XXXX"
+                   maxlength="19"
+                   class="flex-1 bg-slate-50 border border-slate-300 text-slate-900 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none uppercase font-mono tracking-wider" />
+            <button (click)="addCode()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-8 rounded-lg shadow-md transition-colors whitespace-nowrap">
+              ADD
+            </button>
+          </div>
+          @if (errorMessage) {
+            <p class="text-rose-500 text-sm mt-2">{{ errorMessage }}</p>
+          }
+        </div>
+      </div>
+
+      <!-- Table Section -->
+      <div class="overflow-x-auto border border-slate-200 rounded-lg">
+        <table class="w-full whitespace-nowrap text-center border-collapse bg-white">
+          <thead>
+            <tr class="bg-[#00b4d8] text-white">
+              <th class="px-6 py-3 border-r border-cyan-400/30 w-16">Id</th>
+              <th class="px-6 py-3 border-r border-cyan-400/30">รหัสสินค้า (16 หลัก)</th>
+              <th class="px-6 py-3 border-r border-cyan-400/30">บาร์โค้ดสินค้า</th>
+              <th class="px-6 py-3 w-24">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            @for (p of products; track p.id; let i = $index) {
+              <tr [class.bg-slate-50]="i % 2 !== 0" class="hover:bg-blue-50/50 transition-colors">
+                <td class="px-6 py-4 border-r border-slate-200">{{ p.id }}</td>
+                <td class="px-6 py-4 border-r border-slate-200 font-mono text-slate-700 tracking-wider">{{ p.code }}</td>
+                <td class="px-6 py-4 border-r border-slate-200">
+                  <div class="flex justify-center items-center bg-white p-2 border border-slate-100 rounded">
+                    @if (p.barcodeBase64) {
+                      <img [src]="'data:image/png;base64,' + p.barcodeBase64" alt="Barcode" class="h-10" />
+                    } @else {
+                      <span class="text-xs text-slate-400">ไม่มีรูป</span>
+                    }
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <button (click)="confirmDelete(p.id!)" class="bg-rose-500 hover:bg-rose-600 text-white text-sm font-bold py-1.5 px-4 rounded shadow transition-colors">
+                    ลบ
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="px-6 py-8 text-slate-400 text-center bg-slate-50/50">ไม่มีข้อมูลรหัสสินค้า (No product codes added)</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  @if (showDeleteModal) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+      <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-200">
+        <div class="p-6 text-center">
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-rose-100 mb-4">
+            <svg class="h-6 w-6 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h3 class="text-lg leading-6 font-medium text-slate-900">ต้องการลบข้อมูล หรือไม่ ?</h3>
+        </div>
+        <div class="bg-slate-50 px-4 py-3 sm:px-6 flex justify-center gap-3 border-t border-slate-100">
+          <button (click)="deleteProduct()" class="w-24 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none transition-colors sm:text-sm">
+            ตกลง
+          </button>
+          <button (click)="cancelDelete()" class="w-24 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-rose-600 text-base font-medium text-white hover:bg-rose-700 focus:outline-none transition-colors sm:text-sm">
+            ยกเลิก
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,92 @@
+<div class="min-h-[80vh] p-8 font-sans bg-slate-50 text-slate-800">
+
+  <!-- IT 10-1: Exam Form -->
+  @if (viewMode === 'exam') {
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden animate-fade-in">
+      <div class="bg-emerald-500 text-white text-center py-3 font-semibold tracking-wide">
+        IT 10-1: ทำข้อสอบ
+      </div>
+      <div class="p-10">
+        <div class="flex items-center gap-4 mb-10">
+          <label class="font-semibold text-slate-700 whitespace-nowrap">ชื่อ-สกุล</label>
+          <input type="text" [(ngModel)]="examineeName"
+                 class="w-full max-w-sm bg-white border border-slate-300 text-slate-900 rounded-lg px-3 py-2 focus:ring-1 focus:ring-blue-500 outline-none" />
+        </div>
+
+        @if (questions.length === 0) {
+          <div class="text-center py-10 text-slate-400 bg-slate-50 rounded-lg">
+            ไม่มีข้อสอบ (กรุณาเพิ่มข้อสอบใน Test08 ก่อน)
+          </div>
+        }
+
+        <div class="space-y-8">
+          @for (q of questions; track q.id; let i = $index) {
+            <div class="border border-slate-200 rounded-xl p-5">
+              <p class="font-semibold text-slate-800 mb-4">
+                <span class="text-emerald-600 mr-2">{{ q.questionNumber }}.</span>{{ q.questionText }}
+              </p>
+              <div class="space-y-2">
+                @for (c of q.choices; track c.choiceNumber) {
+                  <label class="flex items-center gap-3 cursor-pointer group px-3 py-2 rounded-lg transition-colors"
+                         [class.bg-blue-50]="q.selectedAnswer === c.choiceNumber"
+                         [class.border]="q.selectedAnswer === c.choiceNumber"
+                         [class.border-blue-300]="q.selectedAnswer === c.choiceNumber">
+                    <input type="radio"
+                           [name]="'question_' + q.id"
+                           [value]="c.choiceNumber"
+                           [(ngModel)]="q.selectedAnswer"
+                           class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer" />
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-slate-200 text-slate-700">
+                      {{ choiceLabel(c.choiceNumber - 1) }}
+                    </span>
+                    <span class="text-slate-700 group-hover:text-slate-900 transition-colors text-sm">
+                      {{ c.choiceText }}
+                    </span>
+                  </label>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        @if (questions.length > 0) {
+          <div class="mt-10">
+            <button (click)="submitExam()" class="bg-[#467ab2] hover:bg-[#38618e] text-white font-semibold py-2 px-8 rounded-lg shadow transition-colors">
+              ส่งข้อสอบ
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- IT 10-2: Exam Result -->
+  @if (viewMode === 'result') {
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden animate-fade-in-up">
+      <div class="bg-emerald-500 text-white text-center py-3 font-semibold tracking-wide">
+        IT 10-2: ผลการสอบ
+      </div>
+      <div class="p-10 text-center">
+        <div class="mb-6">
+          <div class="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+            <span class="text-3xl font-black text-blue-600">{{ score }}/{{ totalQuestions }}</span>
+          </div>
+          <p class="text-xl text-slate-800 font-bold">คุณ {{ examineeName }}</p>
+          <p class="text-slate-500 mt-1">สอบได้คะแนน : {{ score }}/{{ totalQuestions }}</p>
+        </div>
+        <div class="mt-8">
+          <button (click)="retakeExam()" class="bg-[#467ab2] hover:bg-[#38618e] text-white font-semibold py-2 px-8 rounded-lg shadow transition-colors">
+            สอบอีกครั้ง
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <style>
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
+  </style>
+</div>

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(dotnet build *)",
+      "Bash(dotnet restore *)",
+      "Read(//c/Users/ADMIN/.nuget/packages/barcodelib/3.0.2/**)",
+      "Bash(xargs grep *)",
+      "Bash(powershell -Command \"Get-Service -Name 'MSSQL*','SQLBrowser' -ErrorAction SilentlyContinue | Select-Object Name,Status,DisplayName\")",
+      "Bash(powershell -Command \"[System.Net.Dns]::GetHostName\\(\\)\")"
+    ]
+  }
+}
