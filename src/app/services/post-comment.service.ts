@@ -5,18 +5,40 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ApiResponse } from '../models/api-response';
 
-export interface PostComment { id?: number; commenterName: string; commentText: string; }
+export interface Post {
+  id: number;
+  title: string;
+  content: string;
+  author: string;
+  imageUrl: string;
+  createdAt: string;
+}
+
+export interface Comment {
+  id: number;
+  postId: number;
+  commenterName: string;
+  commentText: string;
+  createdAt: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class PostCommentService {
-  private apiUrl = `${environment.apiUrl}/api/postcomments`;
+  private postsUrl = `${environment.apiUrl}/api/posts`;
+  private commentsUrl = `${environment.apiUrl}/api/comments`;
+
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<PostComment[]> {
-    return this.http.get<ApiResponse<PostComment[]>>(this.apiUrl).pipe(map(r => r.results));
+  getPosts(): Observable<Post[]> {
+    return this.http.get<ApiResponse<Post[]>>(this.postsUrl).pipe(map(r => r.results));
   }
 
-  create(item: PostComment): Observable<{ id: number }> {
-    return this.http.post<ApiResponse<{ id: number }>>(this.apiUrl, item).pipe(map(r => r.results));
+  getCommentsByPostId(postId: number): Observable<Comment[]> {
+    return this.http.get<ApiResponse<Comment[]>>(`${this.commentsUrl}/post/${postId}`).pipe(map(r => r.results));
+  }
+
+  createComment(postId: number, commenterName: string, commentText: string): Observable<{ id: number }> {
+    // Note: You might need to implement CreateCommentCommand on the backend if not already there
+    return this.http.post<ApiResponse<{ id: number }>>(`${this.commentsUrl}`, { postId, commenterName, commentText }).pipe(map(r => r.results));
   }
 }
